@@ -1,30 +1,94 @@
 $("#currentDay").text(moment().format('dddd') + ", " + moment().format('MMM Do'));
+//var Ninehour = document.querySelector("#\\39hr");
 
-// Below are snippet , used to compare the time, using moment.js
-// For each time block; get its HH hour time
-// every time the page is loaded; gets the current Hr using moment.js
-// Use the following method to compare the 2 x time
-// let momentTime = moment("13:30", 'HH:mm');
-// let laterMomentTime = moment("15:00", 'HH:mm');
+compareTime();
+UserEvents();
 
-// save each of the time block in an arry of objects
-// each object has {data-index:9, id:"9AM"}
-// In a for loop, for each data-index value(which is hr) , compare to current hour.
-// for those hr that is past: retrieve the ID value, and set the background color. 
+// Function to compare current time vs timeblock time
+// Set color of time block to be past(grey), present (salmon), future(aqua)
+// May be use this later: if(momentTime.isBefore(laterMomentTime)){
+function compareTime() {
+    var currentTime = parseInt(moment().format('HH'));
+    //console.log("Current Hr is: ", currentTime, typeof(currentTime));
+    for (time=9;time < 21; time++) {
+        var timeblock = parseInt($("#" +time+"hr").attr("data-index"));
+        //console.log("Time block is: ", timeblock, typeof(timeblock));
 
-// if(momentTime.isBefore(laterMomentTime)){
-//   console.log("xxx");
-//   set the color of time block to be past(grey), present (red), future(green)
-// }
+        if (timeblock < currentTime) {
+            $("#"+time+"hr").css("background","lightgrey");
+        } 
+        else if (timeblock == currentTime) {
+        //else if (timeblock == currentTime) {
+            $("#"+time+"hr").css("background","salmon");
+        }
+        else if (timeblock > currentTime) {
+            //console.log("Time block hr is Larger than current time", timeblock );
+            $("#"+time+"hr").css("background","aqua");
+        }
+    } // End For 
+} // End compareTimesss
 
+
+
+// function UserEvents display local stored event when screen is displayed
+function UserEvents() {
+    for (i = 9; i < 21; i++) {
+        var displayevent="";
+        displayevent = localStorage.getItem("eventTime" + i);
+        //console.log("Test local storage report successful: ", localStorage.getItem("eventTime" + i), "at time hr: ", i);
+        console.log("Test local storage report successful: ", displayevent, "at time hr: ", i);
+        $("#"+i+"hr").value = displayevent;
+        $("#"+i+"hr").textContent = displayevent;
+        $("#"+i+"hr").textContent = "WHY NOT";
+        $("#"+i+"hr").innerHTML = displayevent;
+        console.log("The object inside Userevents are: ", $("#"+i+"hr").value);
+        console.log("The object inside Userevents are: ", $("#"+i+"hr").textContent);
+        console.log("The object inside Userevents are: ", $("#"+i+"hr").innerHTML);
+        
+
+        console.log("The object inside Userevents are: ", $("#"+i+"hr"));
+        $("#10hr").text("Static Content");
+       // console.log("Static objec content", $("#10hr").text);
+    }
+}
+
+
+// Listen to any user input on time block
+$(".hr").on("click", eventupdate);
+function eventupdate(event) {
+    var userevent = $(this);
+    console.log("Clicked index is", $(this).attr("data-index"));
+}
+
+// Listen to save button clicked.
+// once clicked, check previous sibling value (text content)
+// Function saveEvent will save the userinput event into local storage
+// each hour has its own local storage , format "eventTime<hr>"
+$(".saveBtn").on("click", saveEvent);
+function saveEvent(event) {
+    var prevchild = $(this).prev();
+    var eventHr = prevchild.attr("data-index");
+    var toDolist = "";
+
+    console.log("Previous Sibling is:", prevchild);
+    console.log("Previous Sibling is:", prevchild.attr("data-index"));
+    console.log("Previous Sibling text is:", prevchild.val());
+    toDolist = prevchild.val();
+    localStorage.setItem("eventTime"+eventHr, toDolist )
+} 
+
+
+
+
+
+
+
+//++++++++++++++ EXTRA +++++++++++++++++++++++++++
 // Command to set the color of the input box background
-$("#10AM").css("background","red");
-
-// Get current Hour
-console.log("current hour is: ", moment().format('HH'));
+//$("#10").css("background","red");
 
 // Get time block hour value
-console.log("Time block 9AM , data-index value is:", $("#9AM").attr("data-index"));
-var blockhr = $("#9AM").attr("data-index");
+//console.log("Time block 9AM , data-index value is:", $("#9").attr("data-index"), typeof($("#9").attr("data-index")));
+//var blockhr = $("#9AM").attr("data-index");
 
 
