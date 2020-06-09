@@ -13,15 +13,20 @@ function compareTime() {
     //Start from 8AM, til 8PM
     for (time=8;time < 21; time++) {
         var timeblock = parseInt($("#" +time+"hr").attr("data-index"));
-
+        
+        // PastTime
         if (timeblock < currentTime) {
-            $("#"+time+"hr").css("background","lightgrey");
+            //$("#"+time+"hr").css("background","lightgrey");
+            $("#"+time+"hr").addClass("past");
         } 
         else if (timeblock == currentTime) {
-            $("#"+time+"hr").css("background","salmon");
+            //$("#"+time+"hr").css("background","salmon");
+            $("#"+time+"hr").addClass(present);
         }
+        // Future Time
         else if (timeblock > currentTime) {
-            $("#"+time+"hr").css("background","aqua");
+            //$("#"+time+"hr").css("background","aqua");
+            $("#"+time+"hr").addClass("future");
         }
     } // End For 
 } // End compareTimesss
@@ -36,14 +41,12 @@ function UserEvents() {
         displayevent = localStorage.getItem("eventTime" + i);
         //console.log("Test local storage report successful: ", localStorage.getItem("eventTime" + i), "at time hr: ", i);
         console.log("Test local storage report successful: ", displayevent, "at time hr: ", i);
-        document.getElementById(i+"hr").value = displayevent;
+        
+        // 2 ways below to display the local storage on screen
+        //document.getElementById(i+"hr").value = displayevent;
+        $("#"+i+"hr").val(displayevent);
+        //$("#"+i+"hr").text(displayevent);
 
-        //$("#"+i+"hr").value = displayevent;
-        //$("#"+i+"hr").textContent = displayevent;
-        //$("#"+i+"hr").textContent = "WHY NOT";
-        //console.log("The object inside Userevents are: ", $("#"+i+"hr").value);
-        //console.log("The object inside Userevents are: ", $("#"+i+"hr").textContent);
-        //console.log("The object inside Userevents are: ", $("#"+i+"hr").innerHTML);
     } // End For
 } // End Function UserEvents
 
