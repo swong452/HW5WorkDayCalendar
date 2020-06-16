@@ -39,13 +39,12 @@ function UserEvents() {
     for (i = 8; i < 21; i++) {
         var displayevent="";
         displayevent = localStorage.getItem("eventTime" + i);
-        //console.log("Test local storage report successful: ", localStorage.getItem("eventTime" + i), "at time hr: ", i);
         console.log("Test local storage report successful: ", displayevent, "at time hr: ", i);
         
         // 2 ways below to display the local storage on screen
         //document.getElementById(i+"hr").value = displayevent;
         $("#"+i+"hr").val(displayevent);
-        //$("#"+i+"hr").text(displayevent);
+    
 
     } // End For
 } // End Function UserEvents
