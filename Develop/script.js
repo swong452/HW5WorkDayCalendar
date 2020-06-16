@@ -21,7 +21,7 @@ function compareTime() {
         } 
         else if (timeblock == currentTime) {
             //$("#"+time+"hr").css("background","salmon");
-            $("#"+time+"hr").addClass(present);
+            $("#"+time+"hr").addClass("present");
         }
         // Future Time
         else if (timeblock > currentTime) {
